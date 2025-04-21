@@ -35,6 +35,7 @@ def copy_rename_slide(slide_path):
     shutil.copyfile(slide_path, deid_path)
     return deid_path
 
+
 def anonymize_slide_at2(slide_path, replace_name="MDACC"):
     with tifffile.TiffFile(slide_path, mode="r+b") as svs:
         assert svs.is_svs
@@ -129,7 +130,6 @@ def anonymize_slide_motic(slide_path, replace_name="MDACC"):
         tagsize = 20 if is_big else 12
         off_fmt = byteorder + ("Q" if is_big else "I")
 
-
     # Patch the file on disk
     with slide_path.open("r+b") as fh:
         # 2a) Terminate IFD chain after last pyramid page
@@ -211,17 +211,18 @@ class DeIDApp(QWidget):
         if os.path.isfile(self.selected_path):
             self.deid_file(self.selected_path)
         elif os.path.isdir(self.selected_path):
-            svs_files = [f for f in os.listdir(self.selected_path) if f.endswith(".svs")]
+            svs_files = sorted([f for f in os.listdir(self.selected_path) if f.endswith(".svs")])
             if not svs_files:
                 QMessageBox.information(self, "Info", "No svs files found in the selected folder.")
                 return
             for svs_file in svs_files:
                 full_path = os.path.join(self.selected_path, svs_file)
                 self.deid_file(full_path)
+            # Show complete message afer processing all files
+            QMessageBox.information(self, "Success", "All slides de-identification completed.")
         else:
             QMessageBox.warning(self, "Error", "Invalid path selected.")
-        # Show success message
-        QMessageBox.information(self, "Success", "All slides de-identification completed.")
+
 
     def deid_file(self, file_path):
         filename = os.path.split(file_path)[1]
