@@ -14,3 +14,8 @@ $ python -m PyInstaller --onefile --noconsole SlideDeID.py --icon=assets/deid_ic
 ### Notes
 - **Supported scanners:** Leica AT2, Leica GT450, and Motic.
 - **De‑identification:** Performed directly on the raw slide—be sure a backup copy is retained.
+
+
+### ToDo
+- When selecting folders, sorting slides based on their names
+- Remove "All complete" message box when selecting one svs slide 
