@@ -1,5 +1,5 @@
-# slide-deid
-Pathology whole slide imaging (WSI) de-identification
+# slide-deid: Pathology whole slide imaging (WSI) de-identification
+<img src="./docs/app_interface.png" width="396" height="224" alt="Banner">
 
 ### Build App
 - Follow these steps to build the app
@@ -14,8 +14,3 @@ $ python -m PyInstaller --onefile --noconsole SlideDeID.py --icon=assets/deid_ic
 ### Notes
 - **Supported scanners:** Leica AT2, Leica GT450, and Motic.
 - **De‑identification:** Performed directly on the raw slide—be sure a backup copy is retained.
-
-
-### ToDo
-- When selecting folders, sorting slides based on their names
-- Remove "All complete" message box when selecting one svs slide 
