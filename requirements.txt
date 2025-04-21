@@ -1,0 +1,4 @@
+PyQt5==5.15.11
+tifffile==2024.12.12
+pytz==2025.2
+pyinstaller==6.13.0
