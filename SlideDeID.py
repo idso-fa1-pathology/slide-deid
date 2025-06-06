@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
 import os, sys
-import argparse, struct, shutil, pytz, tifffile
+import argparse, struct, shutil, tifffile
+import pytz, time
 from datetime import datetime
 from pathlib import Path
 from PyQt5.QtGui import QIcon
@@ -217,6 +218,7 @@ class DeIDApp(QWidget):
             for svs_file in svs_files:
                 full_path = os.path.join(self.selected_path, svs_file)
                 self.deid_file(full_path, success_message=False)  # Suppress individual success messages
+                time.sleep(1.1)  # Optional: add a small delay to avoid overwhelming the UI
             # Show complete message afer processing all files
             QMessageBox.information(self, "Success", "All slides de-identification completed.")
         else:
