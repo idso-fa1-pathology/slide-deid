@@ -26,10 +26,9 @@ def copy_rename_slide(slide_path):
     file_fullname = os.path.basename(slide_path)
     file_name, file_extension = os.path.splitext(file_fullname)
     file_dir = os.path.dirname(slide_path)
-    deid_dir = os.path.join(file_dir, file_name)
-    if os.path.exists(deid_dir):
-        shutil.rmtree(deid_dir)
-    os.makedirs(deid_dir)
+    deid_dir = os.path.join(file_dir, "DeidentifiedImages")
+    if not os.path.exists(deid_dir):
+        os.makedirs(deid_dir)
     timestamp = datetime.now(tz=pytz.timezone("America/Chicago")).strftime("%Y%m%d_%H%M%S")
     deid_path = os.path.join(deid_dir, timestamp + file_extension)
     shutil.copyfile(slide_path, deid_path)
@@ -217,18 +216,19 @@ class DeIDApp(QWidget):
                 return
             for svs_file in svs_files:
                 full_path = os.path.join(self.selected_path, svs_file)
-                self.deid_file(full_path)
+                self.deid_file(full_path, success_message=False)  # Suppress individual success messages
             # Show complete message afer processing all files
             QMessageBox.information(self, "Success", "All slides de-identification completed.")
         else:
             QMessageBox.warning(self, "Error", "Invalid path selected.")
 
 
-    def deid_file(self, file_path):
+    def deid_file(self, file_path, success_message=True):
         filename = os.path.split(file_path)[1]
         try:
-            deid_slide(file_path, copy=False)
-            QMessageBox.information(self, "Success", f"{filename} has been de-ided.")
+            deid_slide(file_path, copy=True)
+            if success_message:
+                QMessageBox.information(self, "Success", f"{filename} has been de-ided.")
         except Exception as e:
             QMessageBox.critical(self, "Error", f"Failed to de-id {filename}: {e}")
 
