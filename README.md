@@ -14,3 +14,6 @@ $ python -m PyInstaller --onefile --noconsole SlideDeID.py --icon=assets/deid_ic
 ### Notes
 - **Supported scanners:** Leica AT2, Leica GT450, and Motic.
 - **De‑identification:** Performed directly on the raw slide—be sure a backup copy is retained.
+
+### Disclaimer
+This code repo is intended exclusively for research purposes and is not intended for clinical use.
